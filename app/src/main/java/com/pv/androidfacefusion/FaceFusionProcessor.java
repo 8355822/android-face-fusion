@@ -45,7 +45,7 @@ public class FaceFusionProcessor {
         // Detect source face
         List<FaceDetector.Face> sourceFaces = faceDetector.detectFaces(sourceImage);
         if (sourceFaces.isEmpty()) {
-            throw new Exception("No face detected in source image. Please use an image with a clear, frontal face.");
+            throw new Exception("源图片中未检测到人脸，请换一张正面、五官清晰的图片。");
         }
         FaceDetector.Face sourceFace = sourceFaces.get(0);
 
@@ -56,7 +56,7 @@ public class FaceFusionProcessor {
         // Detect target faces
         List<FaceDetector.Face> targetFaces = faceDetector.detectFaces(targetImage);
         if (targetFaces.isEmpty()) {
-            throw new Exception("No face detected in target image.");
+            throw new Exception("目标图片中未检测到人脸。");
         }
 
         Bitmap result = targetImage.copy(Bitmap.Config.ARGB_8888, true);
@@ -92,7 +92,7 @@ public class FaceFusionProcessor {
      */
     public Bitmap processFaceFusionWithMapping(Bitmap targetImage, Map<Integer, float[]> targetIndexToEmbeddingMap) throws Exception {
         if (targetIndexToEmbeddingMap == null || targetIndexToEmbeddingMap.isEmpty()) {
-            throw new Exception("No target face mappings selected.");
+            throw new Exception("还没有指定任何目标人脸的替换对象。");
         }
 
         Log.d(TAG, "Starting mapped face fusion for " + targetIndexToEmbeddingMap.size() + " target face mapping(s)...");
@@ -100,7 +100,7 @@ public class FaceFusionProcessor {
         // Detect target faces
         List<FaceDetector.Face> targetFaces = faceDetector.detectFaces(targetImage);
         if (targetFaces.isEmpty()) {
-            throw new Exception("No face detected in target image.");
+            throw new Exception("目标图片中未检测到人脸。");
         }
 
         Bitmap result = targetImage.copy(Bitmap.Config.ARGB_8888, true);
@@ -151,7 +151,7 @@ public class FaceFusionProcessor {
         Log.d(TAG, "Found " + sourceFaces.size() + " face(s) in source image");
         
         if (sourceFaces.isEmpty()) {
-            throw new Exception("No face detected in source image. Please use an image with a clear, frontal face.");
+            throw new Exception("源图片中未检测到人脸，请换一张正面、五官清晰的图片。");
         }
         
         FaceDetector.Face sourceFace = sourceFaces.get(0); // Use first face
@@ -165,10 +165,10 @@ public class FaceFusionProcessor {
         if (targetFaces.isEmpty()) {
             String suggestion = "";
             if (targetImage.getWidth() < 300 || targetImage.getHeight() < 300) {
-                suggestion = " The target image is quite small (" + targetImage.getWidth() + "x" + 
-                           targetImage.getHeight() + "). Try using a larger image with a clearer face.";
+                suggestion = " 目标图片尺寸偏小（" + targetImage.getWidth() + "x" + 
+                           targetImage.getHeight() + "). 建议使用更大、人脸更清晰的图片。";
             }
-            throw new Exception("No face detected in target image. Please use an image with a clear, frontal face." + suggestion);
+            throw new Exception("目标图片中未检测到人脸，请换一张正面、五官清晰的图片。" + suggestion);
         }
 
         if (targetFaceIndex < 0 || targetFaceIndex >= targetFaces.size()) {
@@ -224,7 +224,7 @@ public class FaceFusionProcessor {
         // Detect source face
         List<FaceDetector.Face> sourceFaces = faceDetector.detectFaces(sourceImage);
         if (sourceFaces.isEmpty()) {
-            throw new Exception("No face detected in source image");
+            throw new Exception("源图片中未检测到人脸");
         }
         FaceDetector.Face sourceFace = sourceFaces.get(0);
         
@@ -235,7 +235,7 @@ public class FaceFusionProcessor {
         // Detect all target faces
         List<FaceDetector.Face> targetFaces = faceDetector.detectFaces(targetImage);
         if (targetFaces.isEmpty()) {
-            throw new Exception("No face detected in target image");
+            throw new Exception("目标图片中未检测到人脸");
         }
         
         Bitmap result = targetImage.copy(Bitmap.Config.ARGB_8888, true);
