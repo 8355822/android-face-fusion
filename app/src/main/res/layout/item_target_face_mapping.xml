@@ -44,7 +44,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Replace with:"
+                android:text="替换为："
                 android:textSize="12sp"
                 android:textColor="?android:attr/textColorSecondary"
                 android:layout_marginTop="2dp" />
