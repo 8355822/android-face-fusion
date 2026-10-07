@@ -37,7 +37,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Face Fusion"
+                        android:text="AI 换脸"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         android:textColor="?attr/colorPrimary"
@@ -46,7 +46,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Swap faces between images using AI"
+                        android:text="用 AI 把两张照片的人脸互换"
                         android:textSize="14sp"
                         android:gravity="center"
                         android:layout_marginTop="4dp" />
@@ -75,7 +75,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Standard Swap"
+                    android:text="标准换脸"
                     app:icon="@android:drawable/ic_menu_rotate" />
 
                 <com.google.android.material.button.MaterialButton
@@ -84,7 +84,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Face Library"
+                    android:text="人脸库"
                     app:icon="@android:drawable/ic_menu_myplaces" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -118,7 +118,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Source Face (Face to extract)"
+                            android:text="源人脸（要提取的脸）"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:layout_marginBottom="8dp" />
@@ -129,7 +129,7 @@
                             android:layout_height="200dp"
                             android:scaleType="centerCrop"
                             android:background="?attr/colorSurfaceVariant"
-                            android:contentDescription="Source image"
+                            android:contentDescription="源图片"
                             android:layout_marginBottom="8dp" />
 
                         <LinearLayout
@@ -143,7 +143,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Local Image"
+                                android:text="本地图片"
                                 android:layout_marginEnd="8dp"
                                 app:icon="@android:drawable/ic_menu_gallery" />
 
@@ -152,7 +152,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="From URL"
+                                android:text="网络图片"
                                 app:icon="@android:drawable/ic_menu_upload" />
 
                         </LinearLayout>
@@ -179,7 +179,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Target Image (Face to replace)"
+                            android:text="目标图（要被替换的脸）"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:layout_marginBottom="8dp" />
@@ -190,7 +190,7 @@
                             android:layout_height="220dp"
                             android:scaleType="fitCenter"
                             android:background="?attr/colorSurfaceVariant"
-                            android:contentDescription="Target image"
+                            android:contentDescription="目标图片"
                             android:layout_marginBottom="8dp" />
 
                         <TextView
@@ -201,7 +201,7 @@
                             android:textColor="?attr/colorPrimary"
                             android:visibility="gone"
                             android:layout_marginBottom="4dp"
-                            tools:text="3 faces detected. Tap a face or select below:" />
+                            tools:text="检测到 3 张人脸。点击图片上的人脸或在下方选择：" />
 
                         <HorizontalScrollView
                             android:id="@+id/targetFaceChipScrollView"
@@ -232,7 +232,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Local Image"
+                                android:text="本地图片"
                                 android:layout_marginEnd="8dp"
                                 app:icon="@android:drawable/ic_menu_gallery" />
 
@@ -241,7 +241,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="From URL"
+                                android:text="网络图片"
                                 app:icon="@android:drawable/ic_menu_upload" />
 
                         </LinearLayout>
@@ -255,7 +255,7 @@
                     android:id="@+id/btnProcess"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="Swap Faces"
+                    android:text="开始换脸"
                     android:textSize="18sp"
                     app:icon="@android:drawable/ic_menu_rotate"
                     app:iconGravity="textStart"
@@ -266,7 +266,7 @@
                     style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Reset"
+                    android:text="重置"
                     app:icon="@android:drawable/ic_menu_revert"
                     app:iconGravity="textStart"
                     android:layout_marginBottom="16dp" />
@@ -310,7 +310,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Saved Face Library"
+                                android:text="已保存的人脸库"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -319,7 +319,7 @@
                                 style="@style/Widget.Material3.Button.TonalButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="+ Add Face"
+                                android:text="+ 添加人脸"
                                 app:icon="@android:drawable/ic_menu_add" />
 
                         </LinearLayout>
@@ -328,7 +328,7 @@
                             android:id="@+id/emptyLibraryText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="No saved faces yet. Tap '+ Add Face' to store faces in your library!"
+                            android:text="还没有保存的人脸。点上面的「+ 添加人脸」把人脸存进库里！"
                             android:textSize="13sp"
                             android:textColor="?android:attr/textColorSecondary"
                             android:gravity="center"
@@ -366,7 +366,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Target Picture &amp; Face Mapping"
+                            android:text="目标照片与人脸对应"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:layout_marginBottom="8dp" />
@@ -377,7 +377,7 @@
                             android:layout_height="220dp"
                             android:scaleType="fitCenter"
                             android:background="?attr/colorSurfaceVariant"
-                            android:contentDescription="Library target image"
+                            android:contentDescription="库中目标图片"
                             android:layout_marginBottom="8dp" />
 
                         <LinearLayout
@@ -392,7 +392,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Local Image"
+                                android:text="本地图片"
                                 android:layout_marginEnd="8dp"
                                 app:icon="@android:drawable/ic_menu_gallery" />
 
@@ -401,7 +401,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="From URL"
+                                android:text="网络图片"
                                 app:icon="@android:drawable/ic_menu_upload" />
 
                         </LinearLayout>
@@ -414,7 +414,7 @@
                             android:textColor="?attr/colorPrimary"
                             android:visibility="gone"
                             android:layout_marginBottom="8dp"
-                            tools:text="Select a library face for each detected target face:" />
+                            tools:text="为检测到的每张人脸选择要用的库中人脸：" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/targetMappingRecyclerView"
@@ -433,7 +433,7 @@
                     android:id="@+id/btnLibraryProcess"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="Swap Faces using Library"
+                    android:text="用库中人脸换脸"
                     android:textSize="18sp"
                     app:icon="@android:drawable/ic_menu_rotate"
                     app:iconGravity="textStart"
@@ -444,7 +444,7 @@
                     style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Reset Target"
+                    android:text="重置目标"
                     app:icon="@android:drawable/ic_menu_revert"
                     app:iconGravity="textStart"
                     android:layout_marginBottom="16dp" />
@@ -472,7 +472,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginBottom="16dp"
-                tools:text="Processing... 25%" />
+                tools:text="处理中... 25%" />
 
             <!-- Shared Result Image Section -->
             <com.google.android.material.card.MaterialCardView
@@ -496,7 +496,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Result"
+                        android:text="换脸结果"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp" />
@@ -506,7 +506,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
                         android:scaleType="centerCrop"
-                        android:contentDescription="Result image"
+                        android:contentDescription="换脸结果图片"
                         android:layout_marginBottom="8dp" />
 
                     <LinearLayout
@@ -520,7 +520,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginEnd="8dp"
-                            android:text="Save"
+                            android:text="保存"
                             app:icon="@android:drawable/ic_menu_save" />
 
                         <com.google.android.material.button.MaterialButton
@@ -529,7 +529,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Share"
+                            android:text="分享"
                             app:icon="@android:drawable/ic_menu_share" />
 
                     </LinearLayout>
@@ -577,7 +577,7 @@
                     android:id="@+id/overlayTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Setting up AI Models"
+                    android:text="正在准备 AI 模型"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:gravity="center"
@@ -587,7 +587,7 @@
                     android:id="@+id/overlayStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Preparing..."
+                    android:text="准备中..."
                     android:textSize="14sp"
                     android:gravity="center"
                     android:layout_marginBottom="16dp" />
@@ -608,7 +608,7 @@
                     android:textSize="13sp"
                     android:gravity="center"
                     android:textColor="?android:attr/textColorSecondary"
-                    tools:text="Downloading... 45%" />
+                    tools:text="下载中... 45%" />
 
             </LinearLayout>
 
