@@ -82,7 +82,7 @@ public class TargetFaceMappingAdapter extends RecyclerView.Adapter<TargetFaceMap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FaceDetector.Face face = targetFaces.get(position);
-        holder.label.setText("Target Face " + (position + 1));
+        holder.label.setText("目标人脸 " + (position + 1));
 
         // Use cached crop or compute new crop thumbnail
         Bitmap crop = cropCache.get(position);
@@ -104,7 +104,7 @@ public class TargetFaceMappingAdapter extends RecyclerView.Adapter<TargetFaceMap
 
         // Prepare spinner dropdown options
         List<String> options = new ArrayList<>();
-        options.add("Keep Original (No Swap)");
+        options.add("保持原样（不换脸）");
         for (SavedFace sf : savedFaces) {
             options.add("👤 " + sf.getName());
         }
