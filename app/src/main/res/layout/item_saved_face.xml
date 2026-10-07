@@ -52,7 +52,7 @@
                 android:layout_height="36dp"
                 android:src="@android:drawable/ic_menu_edit"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Edit face name"
+                android:contentDescription="修改人脸名称"
                 app:tint="?attr/colorPrimary" />
 
             <ImageButton
@@ -61,7 +61,7 @@
                 android:layout_height="36dp"
                 android:src="@android:drawable/ic_menu_delete"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Delete saved face"
+                android:contentDescription="删除已保存的人脸"
                 app:tint="?attr/colorError" />
 
         </LinearLayout>
