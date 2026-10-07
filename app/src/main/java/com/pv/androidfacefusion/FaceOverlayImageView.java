@@ -169,7 +169,7 @@ public class FaceOverlayImageView extends AppCompatImageView {
             canvas.drawRoundRect(mappedBox, rx, ry, boxPaint);
 
             // Draw index badge label
-            String label = "Face " + (i + 1);
+            String label = "人脸 " + (i + 1);
             float textWidth = badgeTextPaint.measureText(label);
             float badgeWidth = textWidth + 12.0f * density;
             float badgeHeight = 18.0f * density;
