@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
             new ActivityResultContracts.RequestPermission(),
             isGranted -> {
                 if (!isGranted) {
-                    Toast.makeText(this, "Storage permission is required to save images",
+                    Toast.makeText(this, "需要存储权限才能保存图片",
                         Toast.LENGTH_SHORT).show();
                 }
             }
@@ -278,9 +278,9 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
 
                 runOnUiThread(() -> {
                     if (needsDownload) {
-                        showOverlay("Setting up AI Models", "Preparing download...");
+                        showOverlay("正在准备 AI 模型", "准备下载...");
                     } else {
-                        showOverlay("Loading AI Models", "Initializing...");
+                        showOverlay("正在加载 AI 模型", "初始化中...");
                     }
                 });
 
@@ -289,13 +289,13 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
                         @Override
                         public void onProgress(String modelName, int progress) {
                             String displayName = getModelDisplayName(modelName);
-                            runOnUiThread(() -> updateOverlay("Downloading " + displayName, progress));
+                            runOnUiThread(() -> updateOverlay("正在下载 " + displayName, progress));
                         }
 
                         @Override
                         public void onComplete(String modelName) {
                             String displayName = getModelDisplayName(modelName);
-                            runOnUiThread(() -> updateOverlay(displayName + " downloaded", 100));
+                            runOnUiThread(() -> updateOverlay(displayName + " 已下载", 100));
                         }
 
                         @Override
@@ -306,20 +306,20 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
                 }
 
                 runOnUiThread(() -> updateOverlay(needsDownload
-                        ? "Downloading Face Detector (~16 MB)"
-                        : "Loading Face Detector", -1));
+                        ? "正在下载人脸检测模型（约 16 MB）"
+                        : "正在加载人脸检测模型", -1));
                 faceDetector = new FaceDetector(this);
                 faceDetector.initialize();
 
                 runOnUiThread(() -> updateOverlay(needsDownload
-                        ? "Downloading Face Embedder (~166 MB)"
-                        : "Loading Face Embedder", -1));
+                        ? "正在下载人脸特征模型（约 166 MB）"
+                        : "正在加载人脸特征模型", -1));
                 faceEmbedder = new FaceEmbedder(this);
                 faceEmbedder.initialize();
 
                 runOnUiThread(() -> updateOverlay(needsDownload
-                        ? "Downloading Face Swapper (~553 MB)"
-                        : "Loading Face Swapper", -1));
+                        ? "正在下载换脸模型（约 553 MB）"
+                        : "正在加载换脸模型", -1));
                 faceSwapper = new FaceSwapper(this);
                 faceSwapper.initialize();
 
@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
                     hideOverlay();
                     btnProcess.setEnabled(true);
                     btnLibraryProcess.setEnabled(true);
-                    Toast.makeText(this, "All models loaded!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "模型加载完成！", Toast.LENGTH_SHORT).show();
                     if (targetBitmap != null) {
                         detectTargetFacesAsync(targetBitmap);
                     }
@@ -341,12 +341,12 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
                 e.printStackTrace();
                 runOnUiThread(() -> {
                     hideOverlay();
-                    showError("Failed to load models.\n\n" +
-                        "Please check:\n" +
-                        "1. Internet connection is active\n" +
-                        "2. At least 800MB free storage\n" +
-                        "3. Firewall allows connections to HuggingFace\n\n" +
-                        "Error: " + e.getMessage());
+                    showError("模型加载失败。\n\n" +
+                        "请检查：\n" +
+                        "1. 网络连接是否正常\n" +
+                        "2. 是否至少有 800MB 可用空间\n" +
+                        "3. 防火墙是否允许访问 HuggingFace\n\n" +
+                        "错误：" + e.getMessage());
                 });
             }
         });
@@ -354,9 +354,9 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
 
     private String getModelDisplayName(String modelName) {
         switch (modelName) {
-            case "det_10g.onnx": return "Face Detector";
-            case "w600k_r50.onnx": return "Face Embedder";
-            case "inswapper_128.onnx": return "Face Swapper";
+            case "det_10g.onnx": return "人脸检测模型";
+            case "w600k_r50.onnx": return "人脸特征模型";
+            case "inswapper_128.onnx": return "换脸模型";
             default: return modelName;
         }
     }
@@ -471,9 +471,9 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
     }
 
     private void showAddSavedFaceSourceDialog() {
-        String[] options = {"Local Gallery Image", "Image URL"};
+        String[] options = {"手机相册图片", "网络图片网址"};
         new AlertDialog.Builder(this)
-            .setTitle("Add Face to Library")
+            .setTitle("添加人脸到库")
             .setItems(options, (dialog, which) -> {
                 if (which == 0) {
                     currentImageTarget = ImagePickerTarget.ADD_SAVED_FACE;
@@ -488,23 +488,23 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
 
     private void showUrlInputDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter Image URL");
+        builder.setTitle("输入图片网址");
 
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
         input.setHint("https://example.com/image.jpg");
         builder.setView(input);
 
-        builder.setPositiveButton("Load", (dialog, which) -> {
+        builder.setPositiveButton("加载", (dialog, which) -> {
             String url = input.getText().toString().trim();
             if (!url.isEmpty()) {
                 loadImageFromUrl(url, currentImageTarget);
             } else {
-                Toast.makeText(this, "Please enter a valid URL", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "请输入有效的网址", Toast.LENGTH_SHORT).show();
             }
         });
 
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.setNegativeButton("取消", (dialog, which) -> dialog.cancel());
         builder.show();
     }
 
@@ -529,7 +529,7 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
                 runOnUiThread(() -> handleLoadedImage(finalBitmap, target));
             } catch (IOException e) {
                 e.printStackTrace();
-                runOnUiThread(() -> showError("Failed to load image: " + e.getMessage()));
+                runOnUiThread(() -> showError("图片加载失败：" + e.getMessage()));
             }
         });
     }
@@ -565,7 +565,7 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
                 e.printStackTrace();
                 runOnUiThread(() -> {
                     progressBar.setVisibility(View.GONE);
-                    showError("Failed to load image from URL: " + e.getMessage());
+                    showError("从网址加载图片失败：" + e.getMessage());
                 });
             }
         });
@@ -595,11 +595,11 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
 
     private void processAddFaceToLibraryAsync(Bitmap bitmap) {
         if (faceDetector == null || faceEmbedder == null) {
-            Toast.makeText(this, "AI models are still loading, please wait", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "AI 模型还在加载中，请稍候", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        showOverlay("Adding Face to Library", "Detecting face and extracting features...");
+        showOverlay("正在添加到人脸库", "正在检测人脸并提取特征...");
 
         executorService.execute(() -> {
             try {
@@ -607,7 +607,7 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
                 if (faces.isEmpty()) {
                     runOnUiThread(() -> {
                         hideOverlay();
-                        showError("No face detected in the selected image. Please choose an image with a clear face.");
+                        showError("所选图片中未检测到人脸，请换一张五官清晰的图片。");
                     });
                     return;
                 }
@@ -624,7 +624,7 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
                 e.printStackTrace();
                 runOnUiThread(() -> {
                     hideOverlay();
-                    showError("Failed to process face: " + e.getMessage());
+                    showError("人脸处理失败：" + e.getMessage());
                 });
             }
         });
@@ -633,13 +633,13 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
     private void showMultiFaceSelectionDialogForLibrary(Bitmap bitmap, List<FaceDetector.Face> faces) {
         String[] items = new String[faces.size()];
         for (int i = 0; i < faces.size(); i++) {
-            items[i] = "👤 Face " + (i + 1) + " (Confidence: " + Math.round(faces.get(i).score * 100) + "%)";
+            items[i] = "👤 人脸 " + (i + 1) + "（置信度：" + Math.round(faces.get(i).score * 100) + "%）";
         }
 
         new AlertDialog.Builder(this)
-            .setTitle("Select Face to Save")
+            .setTitle("选择要保存的人脸")
             .setItems(items, (dialog, which) -> {
-                showOverlay("Adding Face to Library", "Extracting face features...");
+                showOverlay("正在添加到人脸库", "正在提取人脸特征...");
                 executorService.execute(() -> {
                     try {
                         extractAndPromptSaveFace(bitmap, faces.get(which));
@@ -647,12 +647,12 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
                         e.printStackTrace();
                         runOnUiThread(() -> {
                             hideOverlay();
-                            showError("Failed to extract face: " + e.getMessage());
+                            showError("人脸特征提取失败：" + e.getMessage());
                         });
                     }
                 });
             })
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton("取消", null)
             .show();
     }
 
@@ -692,43 +692,43 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
 
     private void promptFaceNameAndSave(Bitmap faceCrop, float[] embedding) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Name Saved Face");
+        builder.setTitle("给人脸命名");
 
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        input.setHint("e.g. John, Mom, Actor");
+        input.setHint("例如：张三、妈妈、某明星");
         builder.setView(input);
 
-        builder.setPositiveButton("Save", (dialog, which) -> {
+        builder.setPositiveButton("保存", (dialog, which) -> {
             String name = input.getText().toString().trim();
             if (name.isEmpty()) {
-                name = "Face " + (savedFacesAdapter.getItemCount() + 1);
+                name = "人脸 " + (savedFacesAdapter.getItemCount() + 1);
             }
             final String finalName = name;
             executorService.execute(() -> {
                 libraryManager.saveFace(finalName, faceCrop, embedding);
                 runOnUiThread(() -> {
-                    Toast.makeText(this, "Saved face '" + finalName + "' to library!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "已保存人脸「" + finalName + "」到库中！", Toast.LENGTH_SHORT).show();
                     loadSavedFaces();
                 });
             });
         });
 
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.setNegativeButton("取消", (dialog, which) -> dialog.cancel());
         builder.show();
     }
 
     @Override
     public void onEditFaceName(SavedFace face) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Rename Saved Face");
+        builder.setTitle("重命名人脸");
 
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
         input.setText(face.getName());
         builder.setView(input);
 
-        builder.setPositiveButton("Update", (dialog, which) -> {
+        builder.setPositiveButton("更新", (dialog, which) -> {
             String newName = input.getText().toString().trim();
             if (!newName.isEmpty()) {
                 executorService.execute(() -> {
@@ -738,22 +738,22 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
             }
         });
 
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.setNegativeButton("取消", (dialog, which) -> dialog.cancel());
         builder.show();
     }
 
     @Override
     public void onDeleteFace(SavedFace face) {
         new AlertDialog.Builder(this)
-            .setTitle("Delete Face")
-            .setMessage("Are you sure you want to delete '" + face.getName() + "' from your face library?")
-            .setPositiveButton("Delete", (dialog, which) -> {
+            .setTitle("删除人脸")
+            .setMessage("确定要从人脸库中删除「" + face.getName() + "」吗？")
+            .setPositiveButton("删除", (dialog, which) -> {
                 executorService.execute(() -> {
                     libraryManager.deleteFace(face.getId());
                     runOnUiThread(this::loadSavedFaces);
                 });
             })
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton("取消", null)
             .show();
     }
 
@@ -783,7 +783,7 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
         targetFaceChipGroup.setOnCheckedStateChangeListener(null);
 
         if (targetFacesList.isEmpty()) {
-            targetFaceStatusText.setText("No face detected in target image");
+            targetFaceStatusText.setText("目标图片中未检测到人脸");
             targetFaceStatusText.setVisibility(View.VISIBLE);
             targetFaceChipScrollView.setVisibility(View.GONE);
             return;
@@ -792,22 +792,22 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
         targetFaceStatusText.setVisibility(View.VISIBLE);
 
         if (targetFacesList.size() == 1) {
-            targetFaceStatusText.setText("1 face detected in target image:");
+            targetFaceStatusText.setText("目标图片中检测到 1 张人脸：");
             targetFaceChipScrollView.setVisibility(View.VISIBLE);
 
-            Chip chip = createFaceChip("👤 Face 1", 0);
+            Chip chip = createFaceChip("👤 人脸 1", 0);
             chip.setChecked(true);
             targetFaceChipGroup.addView(chip);
         } else {
-            targetFaceStatusText.setText(targetFacesList.size() + " faces detected. Tap faces on image or chips below to toggle:");
+            targetFaceStatusText.setText(targetFacesList.size() + " 张人脸。点击图片上的人脸或下方标签可切换选择：");
             targetFaceChipScrollView.setVisibility(View.VISIBLE);
 
-            Chip allChip = createFaceChip("✨ Select All (" + targetFacesList.size() + ")", -1);
+            Chip allChip = createFaceChip("✨ 全选（" + targetFacesList.size() + ")", -1);
             allChip.setChecked(true);
             targetFaceChipGroup.addView(allChip);
 
             for (int i = 0; i < targetFacesList.size(); i++) {
-                Chip chip = createFaceChip("👤 Face " + (i + 1), i);
+                Chip chip = createFaceChip("👤 人脸 " + (i + 1), i);
                 chip.setChecked(true);
                 targetFaceChipGroup.addView(chip);
             }
@@ -877,11 +877,11 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
                 runOnUiThread(() -> {
                     libraryTargetImageView.setFaces(libraryTargetFacesList);
                     if (libraryTargetFacesList.isEmpty()) {
-                        libraryTargetStatusText.setText("No face detected in target image");
+                        libraryTargetStatusText.setText("目标图片中未检测到人脸");
                         libraryTargetStatusText.setVisibility(View.VISIBLE);
                         targetMappingRecyclerView.setVisibility(View.GONE);
                     } else {
-                        libraryTargetStatusText.setText(libraryTargetFacesList.size() + " face(s) detected. Choose a saved face for each:");
+                        libraryTargetStatusText.setText(libraryTargetFacesList.size() + " 张人脸。请为每张人脸选择要用的库中人脸：");
                         libraryTargetStatusText.setVisibility(View.VISIBLE);
                         targetMappingRecyclerView.setVisibility(View.VISIBLE);
                         targetMappingAdapter.setData(bitmap, libraryTargetFacesList, savedFaces);
@@ -899,31 +899,31 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
 
     private void processFaceFusion() {
         if (sourceBitmap == null || targetBitmap == null) {
-            Toast.makeText(this, "Please select both source and target images",
+            Toast.makeText(this, "请先选择源图片和目标图片",
                 Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (processor == null) {
-            Toast.makeText(this, "Models are still loading, please wait",
+            Toast.makeText(this, "模型还在加载中，请稍候",
                 Toast.LENGTH_SHORT).show();
             return;
         }
 
         final Set<Integer> selectedFaceIndices = targetImageView.getSelectedFaceIndices();
         if (selectedFaceIndices == null || selectedFaceIndices.isEmpty()) {
-            Toast.makeText(this, "Please select at least one target face to swap",
+            Toast.makeText(this, "请至少选择一张要替换的人脸",
                 Toast.LENGTH_SHORT).show();
             return;
         }
 
         btnProcess.setEnabled(false);
         resultCard.setVisibility(View.GONE);
-        showOverlay("Swapping Faces", "Processing face swap...");
+        showOverlay("正在换脸", "正在换脸...");
 
         executorService.execute(() -> {
             try {
-                runOnUiThread(() -> updateOverlay("Processing face swap...", -1));
+                runOnUiThread(() -> updateOverlay("正在换脸...", -1));
                 Bitmap result = processor.processFaceFusion(sourceBitmap, targetBitmap, selectedFaceIndices);
                 resultBitmap = result;
 
@@ -932,14 +932,14 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
                     btnProcess.setEnabled(true);
                     resultImageView.setImageBitmap(result);
                     resultCard.setVisibility(View.VISIBLE);
-                    Toast.makeText(this, "Face swap completed!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "换脸完成！", Toast.LENGTH_SHORT).show();
                 });
             } catch (Exception e) {
                 e.printStackTrace();
                 runOnUiThread(() -> {
                     hideOverlay();
                     btnProcess.setEnabled(true);
-                    showError("Face fusion failed: " + e.getMessage());
+                    showError("换脸失败：" + e.getMessage());
                 });
             }
         });
@@ -947,18 +947,18 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
 
     private void processLibraryFaceFusion() {
         if (libraryTargetBitmap == null) {
-            Toast.makeText(this, "Please select a target picture first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "请先选择目标照片", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (processor == null) {
-            Toast.makeText(this, "Models are still loading, please wait", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "模型还在加载中，请稍候", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Map<Integer, SavedFace> selectedMapping = targetMappingAdapter.getSelectedMapping();
         if (selectedMapping.isEmpty()) {
-            Toast.makeText(this, "Please select at least one face from your library to swap into the target picture",
+            Toast.makeText(this, "请至少从人脸库中选择一张人脸替换到目标照片",
                 Toast.LENGTH_LONG).show();
             return;
         }
@@ -971,17 +971,17 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
         }
 
         if (embeddingMap.isEmpty()) {
-            Toast.makeText(this, "No library faces mapped for swapping", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "还没有指定要替换的人脸", Toast.LENGTH_SHORT).show();
             return;
         }
 
         btnLibraryProcess.setEnabled(false);
         resultCard.setVisibility(View.GONE);
-        showOverlay("Swapping Faces with Library", "Swapping mapped faces into target picture...");
+        showOverlay("正在用库中人脸换脸", "正在把指定的人脸替换到目标照片...");
 
         executorService.execute(() -> {
             try {
-                runOnUiThread(() -> updateOverlay("Swapping mapped faces...", -1));
+                runOnUiThread(() -> updateOverlay("正在替换指定的人脸...", -1));
                 Bitmap result = processor.processFaceFusionWithMapping(libraryTargetBitmap, embeddingMap);
                 resultBitmap = result;
 
@@ -990,14 +990,14 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
                     btnLibraryProcess.setEnabled(true);
                     resultImageView.setImageBitmap(result);
                     resultCard.setVisibility(View.VISIBLE);
-                    Toast.makeText(this, "Multi-face library swap completed!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "多人脸替换完成！", Toast.LENGTH_SHORT).show();
                 });
             } catch (Exception e) {
                 e.printStackTrace();
                 runOnUiThread(() -> {
                     hideOverlay();
                     btnLibraryProcess.setEnabled(true);
-                    showError("Face fusion with library failed: " + e.getMessage());
+                    showError("使用人脸库换脸失败：" + e.getMessage());
                 });
             }
         });
@@ -1005,7 +1005,7 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
 
     private void saveResult() {
         if (resultBitmap == null) {
-            Toast.makeText(this, "No result to save", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "没有可保存的结果", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -1033,19 +1033,19 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
                     out.close();
 
                     runOnUiThread(() ->
-                        Toast.makeText(this, "Image saved to Pictures folder", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "图片已保存到「图片」文件夹", Toast.LENGTH_LONG).show()
                     );
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                runOnUiThread(() -> showError("Failed to save image: " + e.getMessage()));
+                runOnUiThread(() -> showError("保存图片失败：" + e.getMessage()));
             }
         });
     }
 
     private void shareResult() {
         if (resultBitmap == null) {
-            Toast.makeText(this, "No result to share", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "没有可分享的结果", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -1067,11 +1067,11 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
                     shareIntent.setType("image/jpeg");
                     shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
                     shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    startActivity(Intent.createChooser(shareIntent, "Share Face Fusion Result"));
+                    startActivity(Intent.createChooser(shareIntent, "分享换脸结果"));
                 });
             } catch (Exception e) {
                 e.printStackTrace();
-                runOnUiThread(() -> showError("Failed to share image: " + e.getMessage()));
+                runOnUiThread(() -> showError("分享图片失败：" + e.getMessage()));
             }
         });
     }
@@ -1085,9 +1085,9 @@ public class MainActivity extends AppCompatActivity implements SavedFacesAdapter
 
     private void showError(String message) {
         new AlertDialog.Builder(this)
-            .setTitle("Error")
+            .setTitle("错误")
             .setMessage(message)
-            .setPositiveButton("OK", null)
+            .setPositiveButton("确定", null)
             .show();
     }
 
