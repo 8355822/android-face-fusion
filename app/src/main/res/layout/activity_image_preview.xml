@@ -9,7 +9,7 @@
         android:id="@+id/previewImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="Image preview" />
+        android:contentDescription="图片预览" />
 
     <ImageButton
         android:id="@+id/btnClose"
@@ -19,7 +19,7 @@
         android:layout_margin="16dp"
         android:background="@android:color/transparent"
         android:src="@android:drawable/ic_menu_close_clear_cancel"
-        android:contentDescription="Close preview"
+        android:contentDescription="关闭预览"
         app:tint="#FFFFFF" />
 
 </FrameLayout>
